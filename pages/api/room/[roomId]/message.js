@@ -6,6 +6,7 @@ export default function roomIdMessageRoute(req, res) {
     const rooms = readDB();
     const roomId = req.query.roomId;
     const idx = rooms.findIndex((x) => x.roomId === roomId);
+    //the room does not exist
     if (idx === -1)
       return res.status(404).json({ ok: false, message: "Invalid room id" });
 
@@ -21,11 +22,11 @@ export default function roomIdMessageRoute(req, res) {
     const newId = uuidv4();
 
     const idx = rooms.findIndex((x) => x.roomId === roomId);
+    //the room does not exist
     if (idx === -1)
-      //the roomId does not exist
       return res.status(404).json({ ok: false, message: "Invalid room id" });
+    //invalid text input
     if (typeof text !== "string")
-      //invalid text input
       return res.status(400).json({ ok: false, message: "Invalid text input" });
 
     //valid request

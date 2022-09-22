@@ -8,12 +8,14 @@ export default function roomIdMessageIdRoute(req, res) {
   if (req.method === "DELETE") {
     const rooms = readDB();
     const roomIdx = rooms.findIndex((x) => x.roomId === roomId);
+    //the room does not exist
     if (roomIdx === -1)
       return res.status(404).json({ ok: false, message: "Invalid room id" });
 
     const messageIdx = rooms[roomIdx].messages.findIndex(
       (x) => x.messageId === messageId
     );
+    //the message does not exist
     if (messageIdx === -1)
       return res.status(404).json({ ok: false, message: "Invalid message id" });
 
